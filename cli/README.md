@@ -1,209 +1,234 @@
+# CLI Tools
 
-[1m[39mfzf
-[22m[39m
-[39mCommand-line fuzzy finder.[22m[39m
-[39mSimilar to `sk`.[22m[39m
-[39mMore information: <https://github.com/junegunn/fzf>.[22m[39m
-[32m
-- Start fzf on all files in the specified directory:[22m[39m
-[31m    find [22m[39m[34mpath/to/directory[39m[31m -type f | fzf[22m[39m
-[32m
-- Start fzf for running processes:[22m[39m
-[31m    ps aux | fzf[22m[39m
-[32m
-- Select multiple files with `Shift + Tab` and write to a file:[22m[39m
-[31m    find [22m[39m[34mpath/to/directory[39m[31m -type f | fzf --multi > [22m[39m[34mfilename[39m[31m[22m[39m
-[32m
-- Start fzf with a specified query:[22m[39m
-[31m    fzf --query "[22m[39m[34mquery[39m[31m"[22m[39m
-[32m
-- Start fzf on entries that start with core and end with either go, rb, or py:[22m[39m
-[31m    fzf --query "^core go$ | rb$ | py$"[22m[39m
-[32m
-- Start fzf on entries that not match pyc and match exactly travis:[22m[39m
-[31m    fzf --query "!pyc 'travis"[22m[39m
+Add command description via `tldr`, then strip ansi with https://maxschmitt.me/ansistrip/ rather than install some weird tool or use regex magic.
 
-[1m[39mfd
-[22m[39m
-[39mAn alternative to `find`.[22m[39m
-[39mAims to be faster and easier to use than `find`.[22m[39m
-[39mMore information: <https://github.com/sharkdp/fd>.[22m[39m
-[32m
-- Recursively find files matching the given pattern in the current directory:[22m[39m
-[31m    fd [22m[39m[34mpattern[39m[31m[22m[39m
-[32m
-- Find files that begin with "foo":[22m[39m
-[31m    fd [22m[39m[34m'^foo'[39m[31m[22m[39m
-[32m
-- Find files with a specific extension:[22m[39m
-[31m    fd --extension [22m[39m[34mtxt[39m[31m[22m[39m
-[32m
-- Find files in a specific directory:[22m[39m
-[31m    fd [22m[39m[34mpattern[39m[31m [22m[39m[34mpath/to/directory[39m[31m[22m[39m
-[32m
-- Include ignored and hidden files in the search:[22m[39m
-[31m    fd --hidden --no-ignore [22m[39m[34mpattern[39m[31m[22m[39m
-[32m
-- Execute a command on each search result returned:[22m[39m
-[31m    fd [22m[39m[34mpattern[39m[31m --exec [22m[39m[34mcommand[39m[31m[22m[39m
+```
+$ tldr <command> >> README.md
+```
+
+- [CLI Tools](#cli-tools)
+  - [`fzf`](#fzf)
+  - [`fd`](#fd)
+  - [`rg`](#rg)
+  - [`jl`](#jl)
+  - [`bat`](#bat)
+  - [`exa`](#exa)
+  - [`http`](#http)
+  - [`tree`](#tree)
+  - [`tldr`](#tldr)
+  - [`vd` (visidata)](#vd-visidata)
+
+## `fzf`
+
+Command-line fuzzy finder.
+Similar to `sk`.
+More information: <https://github.com/junegunn/fzf>.
+
+- Start fzf on all files in the specified directory:
+    `find path/to/directory -type f | fzf`
+
+- Start fzf for running processes:
+    `ps aux | fzf`
+
+- Select multiple files with `Shift + Tab` and write to a file:
+    `find path/to/directory -type f | fzf --multi > filename`
+
+- Start fzf with a specified query:
+    `fzf --query "query"`
+
+- Start fzf on entries that start with core and end with either go, rb, or py:
+    `fzf --query "^core go$ | rb$ | py$"`
+
+- Start fzf on entries that not match pyc and match exactly travis:
+    `fzf --query "!pyc 'travis"`
+
+## `fd`
+
+An alternative to `find`.
+Aims to be faster and easier to use than `find`.
+More information: <https://github.com/sharkdp/fd>.
+
+- Recursively find files matching the given pattern in the current directory:
+    `fd pattern`
+
+- Find files that begin with "foo":
+    `fd '^foo'`
+
+- Find files with a specific extension:
+    `fd --extension txt`
+
+- Find files in a specific directory:
+    `fd pattern path/to/directory`
+
+- Include ignored and hidden files in the search:
+    `fd --hidden --no-ignore pattern`
+
+- Execute a command on each search result returned:
+    `fd pattern --exec command`
 This page doesn't exist yet!
 Submit new pages here: https://github.com/tldr-pages/tldr
 
-[1m[39mrg
-[22m[39m
-[39mRipgrep is a recursive line-oriented CLI search tool.[22m[39m
-[39mAims to be a faster alternative to `grep`.[22m[39m
-[39mMore information: <https://github.com/BurntSushi/ripgrep>.[22m[39m
-[32m
-- Recursively search the current directory for a regular expression:[22m[39m
-[31m    rg [22m[39m[34mregular_expression[39m[31m[22m[39m
-[32m
-- Search for regular expressions recursively in the current directory, including hidden files and files listed in `.gitignore`:[22m[39m
-[31m    rg --no-ignore --hidden [22m[39m[34mregular_expression[39m[31m[22m[39m
-[32m
-- Search for a regular expression only in a certain filetype (e.g., html, css, etc.):[22m[39m
-[31m    rg --type [22m[39m[34mfiletype[39m[31m [22m[39m[34mregular_expression[39m[31m[22m[39m
-[32m
-- Search for a regular expression only in a subset of directories:[22m[39m
-[31m    rg [22m[39m[34mregular_expression[39m[31m [22m[39m[34mset_of_subdirs[39m[31m[22m[39m
-[32m
-- Search for a regular expression in files matching a glob (e.g., `README.*`):[22m[39m
-[31m    rg [22m[39m[34mregular_expression[39m[31m --glob [22m[39m[34mglob[39m[31m[22m[39m
-[32m
-- Only list matched files (useful when piping to other commands):[22m[39m
-[31m    rg --files-with-matches [22m[39m[34mregular_expression[39m[31m[22m[39m
-[32m
-- Show lines that do not match the given regular expression:[22m[39m
-[31m    rg --invert-match [22m[39m[34mregular_expression[39m[31m[22m[39m
-[32m
-- Search a literal string pattern:[22m[39m
-[31m    rg --fixed-strings -- [22m[39m[34mstring[39m[31m[22m[39m
+## `rg`
+
+Ripgrep is a recursive line-oriented CLI search tool.
+Aims to be a faster alternative to `grep`.
+More information: <https://github.com/BurntSushi/ripgrep>.
+
+- Recursively search the current directory for a regular expression:
+    `rg regular_expression`
+
+- Search for regular expressions recursively in the current directory, including hidden files and files listed in `.gitignore`:
+    `rg --no-ignore --hidden regular_expression`
+
+- Search for a regular expression only in a certain filetype (e.g., html, css, etc.):
+    `rg --type filetype regular_expression`
+
+- Search for a regular expression only in a subset of directories:
+    `rg regular_expression set_of_subdirs`
+
+- Search for a regular expression in files matching a glob (e.g., `README.*`):
+    `rg regular_expression --glob glob`
+
+- Only list matched files (useful when piping to other commands):
+    `rg --files-with-matches regular_expression`
+
+- Show lines that do not match the given regular expression:
+    `rg --invert-match regular_expression`
+
+- Search a literal string pattern:
+    `rg --fixed-strings -- string`
+
+## `jl`
+
 This page doesn't exist yet!
 Submit new pages here: https://github.com/tldr-pages/tldr
 
-[1m[39mbat
-[22m[39m
-[39mPrint and concatenate files.[22m[39m
-[39mA `cat` clone with syntax highlighting and Git integration.[22m[39m
-[39mMore information: <https://github.com/sharkdp/bat>.[22m[39m
-[32m
-- Print the contents of a file to the standard output:[22m[39m
-[31m    bat [22m[39m[34mfile[39m[31m[22m[39m
-[32m
-- Concatenate several files into the target file:[22m[39m
-[31m    bat [22m[39m[34mfile1[39m[31m [22m[39m[34mfile2[39m[31m > [22m[39m[34mtarget_file[39m[31m[22m[39m
-[32m
-- Append several files into the target file:[22m[39m
-[31m    bat [22m[39m[34mfile1[39m[31m [22m[39m[34mfile2[39m[31m >> [22m[39m[34mtarget_file[39m[31m[22m[39m
-[32m
-- Number all output lines:[22m[39m
-[31m    bat -n [22m[39m[34mfile[39m[31m[22m[39m
-[32m
-- Syntax highlight a json file:[22m[39m
-[31m    bat --language json [22m[39m[34mfile.json[39m[31m[22m[39m
-[32m
-- Display all supported languages:[22m[39m
-[31m    bat --list-languages[22m[39m
+## `bat`
 
-[1m[39mexa
-[22m[39m
-[39mA modern replacement for `ls` (List directory contents).[22m[39m
-[39mMore information: <https://the.exa.website>.[22m[39m
-[32m
-- List files one per line:[22m[39m
-[31m    exa --oneline[22m[39m
-[32m
-- List all files, including hidden files:[22m[39m
-[31m    exa --all[22m[39m
-[32m
-- Long format list (permissions, ownership, size and modification date) of all files:[22m[39m
-[31m    exa --long --all[22m[39m
-[32m
-- List files with the largest at the top:[22m[39m
-[31m    exa --reverse --sort=[22m[39m[34msize[39m[31m[22m[39m
-[32m
-- Display a tree of files, three levels deep:[22m[39m
-[31m    exa --long --tree --level=[22m[39m[34m3[39m[31m[22m[39m
-[32m
-- List files sorted by modification date (oldest first):[22m[39m
-[31m    exa --long --sort=[22m[39m[34mmodified[39m[31m[22m[39m
-[32m
-- List files with their headers, icons, and Git statuses:[22m[39m
-[31m    exa --long --header --icons --git[22m[39m
-[32m
-- Don't list files mentioned in `.gitignore`:[22m[39m
-[31m    exa --git-ignore[22m[39m
+Print and concatenate files.
+A `cat` clone with syntax highlighting and Git integration.
+More information: <https://github.com/sharkdp/bat>.
 
-[1m[39mhttp
-[22m[39m
-[39mHTTPie: HTTP client, aims to be easier to use than cURL.[22m[39m
-[39mMore information: <https://httpie.org>.[22m[39m
-[32m
-- Download a URL to a file:[22m[39m
-[31m    http --download [22m[39m[34mexample.org[39m[31m[22m[39m
-[32m
-- Send form-encoded data:[22m[39m
-[31m    http --form [22m[39m[34mexample.org[39m[31m [22m[39m[34mname='bob'[39m[31m [22m[39m[34mprofile_picture@'bob.png'[39m[31m[22m[39m
-[32m
-- Send JSON object:[22m[39m
-[31m    http [22m[39m[34mexample.org[39m[31m [22m[39m[34mname='bob'[39m[31m[22m[39m
-[32m
-- Specify an HTTP method:[22m[39m
-[31m    http [22m[39m[34mHEAD[39m[31m [22m[39m[34mexample.org[39m[31m[22m[39m
-[32m
-- Include an extra header:[22m[39m
-[31m    http [22m[39m[34mexample.org[39m[31m [22m[39m[34mX-MyHeader:123[39m[31m[22m[39m
-[32m
-- Pass a user name and password for server authentication:[22m[39m
-[31m    http --auth [22m[39m[34musername:password[39m[31m [22m[39m[34mexample.org[39m[31m[22m[39m
-[32m
-- Specify raw request body via stdin:[22m[39m
-[31m    cat [22m[39m[34mdata.txt[39m[31m | http PUT [22m[39m[34mexample.org[39m[31m[22m[39m
+- Print the contents of a file to the standard output:
+    `bat file`
 
-[1m[39mtree
-[22m[39m
-[39mShow the contents of the current directory as a tree.[22m[39m
-[39mMore information: <http://mama.indstate.edu/users/ice/tree/>.[22m[39m
-[32m
-- Print files and directories up to 'num' levels of depth (where 1 means the current directory):[22m[39m
-[31m    tree -L [22m[39m[34mnum[39m[31m[22m[39m
-[32m
-- Print directories only:[22m[39m
-[31m    tree -d[22m[39m
-[32m
-- Print hidden files too with colorization on:[22m[39m
-[31m    tree -a -C[22m[39m
-[32m
-- Print the tree without indentation lines, showing the full path instead (use `-N` to not escape whitespace and special characters):[22m[39m
-[31m    tree -i -f[22m[39m
-[32m
-- Print the size of each node next to it, in human-readable format, with directories displaying their cumulative size (as in the `du` command):[22m[39m
-[31m    tree -s -h --du[22m[39m
-[32m
-- Print files within the tree hierarchy, using a wildcard (glob) pattern, and pruning out directories that don't contain matching files:[22m[39m
-[31m    tree -P '[22m[39m[34m*.txt[39m[31m' --prune[22m[39m
-[32m
-- Print directories within the tree hierarchy, using the wildcard (glob) pattern, and pruning out directories that aren't ancestors of the wanted one:[22m[39m
-[31m    tree -P [22m[39m[34mdirectory_name[39m[31m --matchdirs --prune[22m[39m
-[32m
-- Print the tree ignoring the given directories:[22m[39m
-[31m    tree -I '[22m[39m[34mdirectory_name1|directory_name2[39m[31m'[22m[39m
+- Concatenate several files into the target file:
+    `bat file1 file2 > target_file`
 
-[1m[39mtldr
-[22m[39m
-[39mDisplays simple help pages for command-line tools, from the tldr-pages project.[22m[39m
-[39mMore information: <https://tldr.sh>.[22m[39m
-[32m
-- Show the tldr page for a command (hint: this is how you got here!):[22m[39m
-[31m    tldr [22m[39m[34mcommand[39m[31m[22m[39m
-[32m
-- Show the tldr page for `cd`, overriding the default platform:[22m[39m
-[31m    tldr -p [22m[39m[34mandroid|linux|osx|sunos|windows[39m[31m [22m[39m[34mcd[39m[31m[22m[39m
-[32m
-- Show the tldr page for a subcommand:[22m[39m
-[31m    tldr [22m[39m[34mgit-checkout[39m[31m[22m[39m
-[32m
-- Update local pages (if the client supports caching):[22m[39m
-[31m    tldr -u[22m[39m
+- Append several files into the target file:
+    `bat file1 file2 >> target_file`
+
+- Number all output lines:
+    `bat -n file`
+
+- Syntax highlight a json file:
+    `bat --language json file.json`
+
+- Display all supported languages:
+    `bat --list-languages`
+
+## `exa`
+
+A modern replacement for `ls` (List directory contents).
+More information: <https://the.exa.website>.
+
+- List files one per line:
+    `exa --oneline`
+
+- List all files, including hidden files:
+    `exa --all`
+
+- Long format list (permissions, ownership, size and modification date) of all files:
+    `exa --long --all`
+
+- List files with the largest at the top:
+    `exa --reverse --sort=size`
+
+- Display a tree of files, three levels deep:
+    `exa --long --tree --level=3`
+
+- List files sorted by modification date (oldest first):
+    `exa --long --sort=modified`
+
+- List files with their headers, icons, and Git statuses:
+    `exa --long --header --icons --git`
+
+- Don't list files mentioned in `.gitignore`:
+    `exa --git-ignore`
+
+## `http`
+
+HTTPie: HTTP client, aims to be easier to use than cURL.
+More information: <https://httpie.org>.
+
+- Download a URL to a file:
+    `http --download example.org`
+
+- Send form-encoded data:
+    `http --form example.org name='bob' profile_picture@'bob.png'`
+
+- Send JSON object:
+    `http example.org name='bob'`
+
+- Specify an HTTP method:
+    `http HEAD example.org`
+
+- Include an extra header:
+    `http example.org X-MyHeader:123`
+
+- Pass a user name and password for server authentication:
+    `http --auth username:password example.org`
+
+- Specify raw request body via stdin:
+    `cat data.txt | http PUT example.org`
+
+## `tree`
+
+Show the contents of the current directory as a tree.
+More information: <http://mama.indstate.edu/users/ice/tree/>.
+
+- Print files and directories up to 'num' levels of depth (where 1 means the current directory):
+    `tree -L num`
+
+- Print directories only:
+    `tree -d`
+
+- Print hidden files too with colorization on:
+    `tree -a -C`
+
+- Print the tree without indentation lines, showing the full path instead (use `-N` to not escape whitespace and special characters):
+    `tree -i -f`
+
+- Print the size of each node next to it, in human-readable format, with directories displaying their cumulative size (as in the `du` command):
+    `tree -s -h --du`
+
+- Print files within the tree hierarchy, using a wildcard (glob) pattern, and pruning out directories that don't contain matching files:
+    `tree -P '*.txt' --prune`
+
+- Print directories within the tree hierarchy, using the wildcard (glob) pattern, and pruning out directories that aren't ancestors of the wanted one:
+    `tree -P directory_name --matchdirs --prune`
+
+- Print the tree ignoring the given directories:
+    `tree -I 'directory_name1|directory_name2'`
+
+## `tldr`
+
+Displays simple help pages for command-line tools, from the tldr-pages project.
+More information: <https://tldr.sh>.
+
+- Show the tldr page for a command (hint: this is how you got here!):
+    `tldr command`
+
+- Show the tldr page for `cd`, overriding the default platform:
+    `tldr -p android|linux|osx|sunos|windows cd`
+
+- Show the tldr page for a subcommand:
+    `tldr git-checkout`
+
+- Update local pages (if the client supports caching):
+    `tldr -u`
+
+## `vd` (visidata)
+
 This page doesn't exist yet!
 Submit new pages here: https://github.com/tldr-pages/tldr
