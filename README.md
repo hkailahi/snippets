@@ -14,3 +14,4 @@ Someday I'll make an app like (snipline)[https://snipline.io/]
   - [Redshift](./sql/redshift.sql)
 - Haskell
 - [Python](./python/README.md)
+- [CLI](./cli/README.md)

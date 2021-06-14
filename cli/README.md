@@ -7,6 +7,9 @@ $ tldr <command> >> README.md
 ```
 
 - [CLI Tools](#cli-tools)
+  - [Resources](#resources)
+    - [Tools](#tools)
+    - [Explain Shit](#explain-shit)
   - [`fzf`](#fzf)
   - [`fd`](#fd)
   - [`rg`](#rg)
@@ -17,6 +20,24 @@ $ tldr <command> >> README.md
   - [`tree`](#tree)
   - [`tldr`](#tldr)
   - [`vd` (visidata)](#vd-visidata)
+  - [`gron`](#gron)
+  - [`btm`](#btm)
+  - [`hexyl`](#hexyl)
+  - [`procs`](#procs)
+
+## Resources
+
+### Tools
+https://github.com/ibraheemdev/modern-unix
+https://darrenburns.net/posts/tools/
+https://darrenburns.net/posts/more-tools
+https://darrenburns.net/posts/even-more-tools
+
+### Explain Shit
+
+https://explainshell.com/
+https://regexr.com/
+https://crontab.guru/
 
 ## `fzf`
 
@@ -229,6 +250,54 @@ More information: <https://tldr.sh>.
     `tldr -u`
 
 ## `vd` (visidata)
+
+This page doesn't exist yet!
+Submit new pages here: https://github.com/tldr-pages/tldr
+
+## `gron`
+
+This page doesn't exist yet!
+Submit new pages here: https://github.com/tldr-pages/tldr
+
+## `btm`
+
+An alternative to `top`.
+Aims to be lightweight, cross-platform and more graphical than `top`.
+More information: <https://github.com/ClementTsang/bottom>.
+
+- Show the default layout (cpu, memory, temperatures, disk, network, and processes):
+    `btm`
+
+- Enable basic mode, removing charts and condensing data (similar to `top`):
+    `btm --basic`
+
+- Use big dots instead of small ones in charts:
+    `btm --dot_marker`
+
+- Show also battery charge and health status:
+    `btm --battery`
+
+- Refresh every 250 milliseconds and show the last 30 seconds in the charts:
+    `btm --rate 250 --default_time_value 30000`
+
+## `hexyl`
+
+A simple hex viewer for the terminal. Uses colored output to distinguish different categories of bytes.
+More information: <https://github.com/sharkdp/hexyl>.
+
+- Print the hexadecimal representation of a file:
+    `hexyl path/to/file`
+
+- Print the hexadecimal representation of the first n bytes of a file:
+    `hexyl -n n path/to/file`
+
+- Print bytes 512 through 1024 of a file:
+    `hexyl -r 512:1024 path/to/file`
+
+- Print 512 bytes starting at the 1024th byte:
+    `hexyl -r 1024:+512 path/to/file`
+
+## `procs`
 
 This page doesn't exist yet!
 Submit new pages here: https://github.com/tldr-pages/tldr
